@@ -11,10 +11,17 @@
                         </div>
                         <div class="menu_wrapper">
                             <nav id="menu">
+                                @guest
                                 <ul id="menu-main-menu" class="menu menu-main">
                                     <li> <a target="_blank" href="{{route('parcel.login')}}"><span><span
                                                     style="color:#e6a94a">Log Masuk</span></span></a> </li>
                                 </ul>
+                                @else
+                                <ul id="menu-main-menu" class="menu menu-main">
+                                    <li> <a href="{{route('students.logout')}}"><span><span
+                                                    style="color:#e6a94a">Log Keluar</span></span></a> </li>
+                                </ul>
+                                @endguest
                             </nav><a class="responsive-menu-toggle" href="#"><i class="icon-menu-fine"></i></a>
                         </div>
                     </div>

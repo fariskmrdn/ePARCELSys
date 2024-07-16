@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ParcelController extends Controller
 {
@@ -41,7 +43,58 @@ class ParcelController extends Controller
         return view('index');
     }
 
-    public function login() {
+    public function login()
+    {
         return view('login');
+    }
+
+    public function register()
+    {
+        return view('register');
+    }
+
+    public function registerAccount(Request $request)
+    {
+
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|confirmed|min:8'
+            ]);
+
+        } catch (\Exception $e) {
+            return back()->with([
+                'result' => 'error',
+                'title' => 'Pendaftaran Gagal!',
+                'message' => 'Sila pastikan anda mengisi dengan tepat borang pendaftaran ini.'
+            ]);
+        }
+
+
+        try {
+            DB::beginTransaction();
+
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password'])
+            ]);
+            DB::commit();
+
+            return to_route('parcel.login')->with([
+                'result' => 'success',
+                'title' => 'Pendaftaran Berjaya!',
+                'message' => 'Akaun anda berjaya di daftarkan. Sila log masuk untuk teruskan.'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return to_route('parcel.login')->with([
+                'result' => 'error',
+                'title' => 'Pendaftaran Akaun Tidak Berjaya!',
+                'message' => 'Sila cuba semula.'
+            ]);
+        }
+
     }
 }

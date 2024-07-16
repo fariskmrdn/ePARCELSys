@@ -9,21 +9,24 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-title text-center">Log Masuk Pelajar</h3>
-                                <form action="" method="POST">
+                                <form action="{{ route('parcel.loginStudents') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                        <input type="email" placeholder="Masukkan emel disini" class="form-control" style="border-color: black; color:black;" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp">
-                                        
+                                        <input type="email" placeholder="Masukkan emel disini" class="form-control"
+                                            style="border-color: black; color:black;" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" name="email">
+
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" placeholder="Masukkan katalaluan disini" class="form-control" style="border-color: black; color:black;" id="exampleInputPassword1">
+                                        <input type="password" placeholder="Masukkan katalaluan disini" class="form-control"
+                                            style="border-color: black; color:black;" id="exampleInputPassword1" name="password">
                                     </div>
                                     <div class="mb-3">
-                                        <div class="form-text">Pengguna kali pertama? Daftar akaun di <a href="">sini</a></div>
-                                        <button class="btn btn-primary">Log Masuk</button>
+                                        <div class="form-text">Pengguna kali pertama? Daftar akaun di <a
+                                                href="{{ route('parcel.register') }}">sini</a></div>
+                                        <button type="submit" class="btn btn-primary">Log Masuk</button>
                                     </div>
                                 </form>
                             </div>

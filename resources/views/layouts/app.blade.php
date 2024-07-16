@@ -16,7 +16,7 @@
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Favicons -->
-    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('images/kv.png') }}">
     <!-- FONTS -->
     <link rel='stylesheet'
         href='https://fonts.googleapis.com/css?family=Inter:100,200,300,400,400italic,500,600,700,700italic,900'>
@@ -51,6 +51,29 @@
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script src="{{ asset('rs-plugin-6.custom/js/revolution.tools.min.js') }}"></script>
     <script src="{{ asset('rs-plugin-6.custom/js/rs6.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+     {{-- global alert --}}
+     @if (session()->has('result'))
+     <script>
+         Swal.fire({
+             title: '{{ session("title") }}',
+             text: '{{ session("message") }}',
+             icon: '{{ session("result") }}',
+             toast: true,
+             position: 'top',
+             timer: 3000,
+             showConfirmButton: false,
+             customClass: {
+                 popup: 'bg-white border shadow-sm',
+                 title: 'text-dark mt-1 mb-2',
+                 icon: 'fs-4 ms-1 mt-1 mb-0',
+                 htmlContainer: 'text-muted fs-5 mt-0 mb-1',
+                 confirmButton: 'bg-primary',
+             }
+         });
+     </script>
+     @endif
     <script>
         var revapi1, tpj;
 

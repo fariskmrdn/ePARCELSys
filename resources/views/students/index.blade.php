@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row" style="padding:30px">
                     <div class="col-lg-9 mb-3">
-                        <h3>Hi, FARIS AIMAN HIDAYAT BIN KAMARUDDIN</h3>
+                        <h3>Hi, {{Auth::user()->name}}</h3>
                     </div>
                     <div class="col-lg-3">
                         <a href="{{route('students.create')}}" class="btn btn-primary">Tambah Semakan</a>
