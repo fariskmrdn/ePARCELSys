@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Parcel;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ParcelController extends Controller
@@ -25,7 +27,7 @@ class ParcelController extends Controller
                 return response()->json(['error' => 'No parcel found with the given tracking number or receiver name.'], 404);
             }
 
-            return redirect()->route('parcel.search')->with(['parcels' => $find, 'search' => $validate['track']]);
+            return redirect()->route('search')->with(['parcels' => $find, 'search' => $validate['track']]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while searching for the parcel.'], 500);
         }
@@ -52,6 +54,7 @@ class ParcelController extends Controller
     {
         return view('register');
     }
+
 
     public function registerAccount(Request $request)
     {
@@ -91,10 +94,40 @@ class ParcelController extends Controller
             DB::rollBack();
             return to_route('parcel.login')->with([
                 'result' => 'error',
-                'title' => 'Pendaftaran Akaun Tidak Berjaya!',
-                'message' => 'Sila cuba semula.'
+                'title' => 'Gagal!',
+                'message' => 'Pendaftaran Akaun Tidak Berjaya!'
             ]);
         }
 
+    }
+
+    public function addParcel(Request $request)
+    {
+        $validated = $request->validate([
+            'tracking' => 'required|string|max:255'
+        ]);
+
+        $auth = Auth::user()->id;
+
+        try {
+            DB::beginTransaction();
+            $create = Parcel::create([
+                'tracking_no' => $validated['tracking'],
+                'user_id' => $auth
+            ]);
+            DB::commit();
+            return redirect()->route('students.create')->with([
+                'result' => 'success',
+                'title' => 'No Tracking Didaftarkan!',
+                'message' => 'No tracking berjaya didaftarkan.'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('students.create')->with([
+                'result' => 'error',
+                'title' => 'Gagal',
+                'message' => 'No Tracking tidak berjaya didaftarkan'
+            ]);
+        }
     }
 }

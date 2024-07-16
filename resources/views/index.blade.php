@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-12 text-center">
                         <hr class="no_line" style="margin:0 auto 50px">
-                        <form action="{{ route('parcel.findParcel') }}" method="POST">
+                        <form action="{{ route('findParcel') }}" method="POST">
                             @csrf
                             <input type="text" name="track" class="form-control text-center mb-3"
                                 style="background-color:white; color:black;"

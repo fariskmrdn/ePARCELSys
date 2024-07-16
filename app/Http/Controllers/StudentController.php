@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inventory;
 use App\Models\User;
+use App\Models\Parcel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
-    public function index() {
-        return view('students.index');
+    public function index()
+    {
+        $item = $this->registeredItem();
+        $unretrieved = $this->unretrievedItem();
+        return view('students.index', compact('item', 'unretrieved'));
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $validated = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string'
@@ -42,23 +49,50 @@ class StudentController extends Controller
         }
     }
 
-    public function logout() {
+    public function logout()
+    {
         Auth::logout();
-        return to_route('parcel.index');
+        return to_route('parcel.login');
     }
 
-    public function create() {
+    public function create()
+    {
         return view('students.create');
     }
 
     // get inventory for unclaimed item
-    public function getInventory() {
+    public function getInventory()
+    {
         return view('students.inventory');
     }
 
     // get record for registered item
 
-    public function getRecords() {
-        return view('students.records');
+    public function getRecords()
+    {
+        $item = $this->retrieveRecords();
+
+        return view('students.records', compact('item'));
+    }
+
+    public function registeredItem()
+    {
+        $userId = Auth::id();
+        $count = Parcel::where('user_id', $userId)
+            ->count();
+        return $count;
+    }
+
+    public function unretrievedItem() {
+        $email = Auth::user()->email;
+        $count = Inventory::where('email', $email)->count();
+        return $count;
+    }
+
+    
+    public function retrieveRecords() {
+        $userId = Auth::id();
+        $find = DB::table('pre_item')->where('user_id', $userId)->get();
+        return $find;
     }
 }

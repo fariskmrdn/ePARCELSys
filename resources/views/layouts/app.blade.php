@@ -18,12 +18,12 @@
     <!-- Favicons -->
     <link rel="shortcut icon" href="{{ asset('images/kv.png') }}">
     <!-- FONTS -->
-    <link rel='stylesheet'
+    {{-- <link rel='stylesheet'
         href='https://fonts.googleapis.com/css?family=Inter:100,200,300,400,400italic,500,600,700,700italic,900'>
     <link rel='stylesheet'
         href='https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,400italic,500,600,700,700italic,900'>
     <link rel='stylesheet'
-        href='https://fonts.googleapis.com/css?family=Muli:100,200,300,400,400italic,500,600,700,700italic,900'>
+        href='https://fonts.googleapis.com/css?family=Muli:100,200,300,400,400italic,500,600,700,700italic,900'> --}}
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!--CSS -->
@@ -31,6 +31,8 @@
     <link rel='stylesheet' href='{{ asset('css/business3.css') }}'>
     <!-- Revolution Slider -->
     <link rel="stylesheet" href="{{ asset('rs-plugin-6.custom/css/rs6.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+
 </head>
 
 <body
@@ -52,28 +54,30 @@
     <script src="{{ asset('rs-plugin-6.custom/js/revolution.tools.min.js') }}"></script>
     <script src="{{ asset('rs-plugin-6.custom/js/rs6.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-     {{-- global alert --}}
-     @if (session()->has('result'))
-     <script>
-         Swal.fire({
-             title: '{{ session("title") }}',
-             text: '{{ session("message") }}',
-             icon: '{{ session("result") }}',
-             toast: true,
-             position: 'top',
-             timer: 3000,
-             showConfirmButton: false,
-             customClass: {
-                 popup: 'bg-white border shadow-sm',
-                 title: 'text-dark mt-1 mb-2',
-                 icon: 'fs-4 ms-1 mt-1 mb-0',
-                 htmlContainer: 'text-muted fs-5 mt-0 mb-1',
-                 confirmButton: 'bg-primary',
-             }
-         });
-     </script>
-     @endif
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    {{-- global alert --}}
+    @if (session()->has('result'))
+        <script>
+            Swal.fire({
+                title: '{{ session('title') }}',
+                text: '{{ session('message') }}',
+                icon: '{{ session('result') }}',
+                toast: true,
+                position: 'top',
+                timer: 3000,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'bg-white border shadow-sm',
+                    title: 'text-dark mt-1 mb-2',
+                    icon: 'fs-4 ms-1 mt-1 mb-0',
+                    htmlContainer: 'text-muted fs-5 mt-0 mb-1',
+                    confirmButton: 'bg-primary',
+                }
+            });
+        </script>
+    @endif
     <script>
         var revapi1, tpj;
 
@@ -128,6 +132,11 @@
             revinit_revslider11();
         }
     </script>
+    <script>
+        $(document).ready(function() {
+          $('#example').DataTable();
+        });
+      </script>
 </body>
 
 </html>

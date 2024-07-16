@@ -21,7 +21,7 @@
                         @if (session('parcels'))
                             @php $no = 1; @endphp
 
-                            <h2>Hasil Carian: {{ $search }}</h2>
+                            <h2 class="text-center">Hasil Carian: {{ $search }}</h2>
                             @foreach (session('parcels') as $parcel)
                                 <div class="card mb-2">
                                     <div class="card-body">
@@ -44,7 +44,7 @@
                         @else
                             <p>Harap Maaf. Tiada Carian Dijumpai. Sila Cuba Sekali Lagi.</p>
                         @endif
-                        <a class="btn btn-primary" href="{{ route('parcel.index') }}">Kembali</a>
+                        <a class="btn btn-primary" href="{{ route('index') }}">Kembali</a>
                     </div>
 
                 </div>
