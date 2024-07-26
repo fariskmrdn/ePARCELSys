@@ -18,7 +18,7 @@
     <!-- [Google Font : Public Sans] icon -->
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
 
     <!-- [Tabler Icons] https://tablericons.com -->
     <link rel="stylesheet" href="{{ URL::asset('assets/afonts/tabler-icons.min.css') }}">
@@ -31,6 +31,7 @@
     <!-- [Template CSS Files] -->
     <link rel="stylesheet" href="{{ URL::asset('assets/css/style.css') }}" id="main-style-link">
     <link rel="stylesheet" href="{{ URL::asset('assets/css/style-preset.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 </head>
 <!-- [Head] end -->
@@ -58,7 +59,17 @@
     <script src="{{ asset('assets/js/pcoded.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/feather.min.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
+    @if (session()->has('icon'))
+        <script>
+            Swal.fire({
+                icon: '{{ session('icon') }}',
+                title: '{{ session('title') }}',
+                text: '{{ session('text') }}'
+            });
+        </script>
+    @endif
 </body>
 <!-- [Body] end -->
 

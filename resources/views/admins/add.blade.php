@@ -34,7 +34,7 @@
                             <div class="">
                                 <div>
                                     <h5 class="text-muted mb-3">Masukkan atau Imbas No Tracking disini</h5>
-                                    <form action="">
+                                    <form action="{{route('admins.admin.register')}}" method="POST">
                                         @csrf
                                         <input type="text" name="tracking_no" class="form-control w-100 mb-4" id="trackingNo"
                                             placeholder="Masukkan/Imbas No Tracking">

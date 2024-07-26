@@ -11,7 +11,7 @@ class Parcel extends Model
     use HasFactory, Notifiable;
 
     protected $table = 'pre_item';
-    protected $fillable = ['tracking_no', 'user_id'];
+    protected $fillable = ['tracking_no', 'user_id','status','updated_at'];
 
 
 }

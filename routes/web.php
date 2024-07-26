@@ -11,6 +11,8 @@ Route::name('admins.')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/register_item', [AdminController::class, 'addPage'])->name('admin.addPage');
     Route::get('/admin/records', [AdminController::class, 'recordPage'])->name('admin.records');
+    Route::post('/admin/registering', [AdminController::class, 'registerParcel'])->name('admin.register');
+    Route::get('/admin/register_form}', [AdminController::class, 'showParcelRegisterForm'])->name('admin.register_form');
 });
 
 Route::post('/findParcel', [ParcelController::class, 'findByTrackingNo'])->name('findParcel');
