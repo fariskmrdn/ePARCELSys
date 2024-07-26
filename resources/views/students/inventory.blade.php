@@ -12,7 +12,7 @@
                         <a href="{{ route('students.index') }}" class="btn btn-secondary">Kembali</a>
                     </div>
                     <div class="col-lg-12">
-                        <table class="table" id="example">
+                        <table class="table display" id="example">
                             <thead>
                                 <tr>
                                     <td>Bil</td>

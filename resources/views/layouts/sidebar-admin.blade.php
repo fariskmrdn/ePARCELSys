@@ -31,16 +31,16 @@
                     </a>
                 </li>
                 <li class="pc-item">
-                    <a href="../widget/w_data.html" class="pc-link">
+                    <a href="{{route('admins.admin.addPage')}}" class="pc-link">
                         <span class="pc-micon">
                             <i class="ph-duotone ph-database"></i>
                         </span>
-                        <span class="pc-mtext">Tambah Item</span>
+                        <span class="pc-mtext">Daftar Masuk Parcel</span>
                     </a>
                 </li>
 
                 <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link">
+                    <a href="{{route('admins.admin.records')}}" class="pc-link">
                         <span class="pc-micon">
                             <i class="ph-duotone ph-books"></i>
                         </span>
@@ -91,7 +91,7 @@
                                 aria-expanded="false" data-bs-offset="0,20">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 me-2">
-                                        <h6 class="mb-0">Faris Kamaruddin</h6>
+                                        <h6 class="mb-0">Masni binti Rahman</h6>
                                         <small>Administrator</small>
                                     </div>
                                     <div class="flex-shrink-0">
@@ -103,7 +103,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 <ul>
-                                    <li>
+                                    {{-- <li>
                                         <a class="pc-user-links">
                                             <i class="ph-duotone ph-user"></i>
                                             <span>My Account</span>
@@ -114,17 +114,17 @@
                                             <i class="ph-duotone ph-gear"></i>
                                             <span>Settings</span>
                                         </a>
-                                    </li>
-                                    <li>
+                                    </li> --}}
+                                    {{-- <li>
                                         <a class="pc-user-links">
                                             <i class="ph-duotone ph-lock-key"></i>
                                             <span>Lock Screen</span>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a class="pc-user-links">
                                             <i class="ph-duotone ph-power"></i>
-                                            <span>Logout</span>
+                                            <span>Log Keluar</span>
                                         </a>
                                     </li>
                                 </ul>

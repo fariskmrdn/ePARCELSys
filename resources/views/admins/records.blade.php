@@ -18,7 +18,62 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h2 class="mb-0">Dashboard</h2>
+                                <h2 class="mb-0">Rekod Simpanan eParcel</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-xxl-12">
+                    <div class="card statistics-card-1">
+                        <div class="card-body">
+                            <img src="{{ URL::asset('assets/images/widget/img-status-2.svg') }}" alt="img"
+                                class="img-fluid img-bg" />
+                            <div class="">
+                                <div>
+                                    <h5 class="text-muted mb-3">Rekod</h5>
+                                    <table class="table display" id="record">
+                                        <thead>
+                                            <tr>
+                                                <td>No</td>
+                                                <td>No. Tracking</td>
+                                                <td>Kurier</td>
+                                                <td>No. Siri</td>
+                                                <td>Status</td>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $bil=1;
+                                            @endphp
+                                            @foreach ($record as $r)
+                                            <tr>
+                                                <td>{{$bil++}}</td>
+                                                <td>{{$r->tracking}}</td>
+                                                <td>{{$r->courier}}</td>
+                                                <td>{{$r->serial_no}}</td>
+                                                <td>
+                                                    @if ($r->status == '1')
+                                                        <strong class="text-info">BERDAFTAR</strong>
+                                                    @else
+                                                    <strong class="text-success">DITUNTUT</strong>
+
+                                                    @endif
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#record').DataTable();
+                                        });
+                                    </script>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -27,12 +82,12 @@
             <!-- [ breadcrumb ] end -->
 
             <!-- [ Main Content ] start -->
-            <div class="row">
+            {{-- <div class="row">
                 <!-- [ Row 1 ] start -->
                 <div class="col-md-12 col-xxl-6">
                     <div class="card statistics-card-1">
                         <div class="card-body">
-                            <img src="{{ URL::asset('assets/images/widget/img-status-2.svg') }}" alt="img"
+                            <img src="{{ URL::asset('admin/images/widget/img-status-2.svg') }}" alt="img"
                                 class="img-fluid img-bg" />
                             <div class="d-flex align-items-center">
                                 <div class="avtar bg-brand-color-1 text-white me-3">
@@ -48,7 +103,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="col-md-6 col-xxl-4">
+                <div class="col-md-6 col-xxl-4">
                     <div class="card statistics-card-1">
                         <div class="card-body">
                             <img src="{{ URL::asset('admin/images/widget/img-status-1.svg') }}" alt="img" class="img-fluid img-bg" />
@@ -67,11 +122,11 @@
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
                 <div class="col-md-6 col-xxl-6">
                     <div class="card statistics-card-1">
                         <div class="card-body">
-                            <img src="{{ URL::asset('assets/images/widget/img-status-3.svg') }}" alt="img"
+                            <img src="{{ URL::asset('admin/images/widget/img-status-3.svg') }}" alt="img"
                                 class="img-fluid img-bg" />
                             <div class="d-flex align-items-center">
                                 <div class="avtar bg-brand-color-3 text-white me-3">
@@ -103,12 +158,12 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <img src="{{ URL::asset('assets/images/user/scanner.png') }}"
+                                                        <img src="{{ URL::asset('admin/images/user/scanner.png') }}"
                                                             alt="" class="img-fluid wid-30 rounded-1" />
                                                         <h6 class="mb-0 ms-2">{{ $inv->tracking_no }}</h6>
                                                     </div>
                                                 </td>
-                                                <td>{{\Carbon\Carbon::parse($inv->created_at)->format('d/m/Y h:i A')}}
+                                                <td> 21/07/24
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -131,12 +186,12 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <img src="{{ URL::asset('assets/images/user/parcel_check.png') }}"
+                                                        <img src="{{ URL::asset('admin/images/user/parcel_check.png') }}"
                                                             alt="" class="img-fluid wid-30 rounded-1" />
                                                         <h6 class="mb-0 ms-2">{{ $item->tracking }}</h6>
                                                     </div>
                                                 </td>
-                                                <td>{{\Carbon\Carbon::parse($item->updated_at)->format('d/m/Y h:i A')}}
+                                                <td>21/07/24
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -147,10 +202,11 @@
                     </div>
                 </div>
                 <!-- [ Row 2 ] end -->
-            </div>
+            </div> --}}
             <!-- [ Main Content ] end -->
         </div>
     </div>
     <!-- [ Main Content ] end -->
     @include('layouts.footer-admin')
+
 @endsection

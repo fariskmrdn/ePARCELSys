@@ -60,9 +60,9 @@
                                                     class="wid-50 rounded-circle" />
                                             </div>
                                             <div class="flex-grow-1 mx-3">
-                                                <h5 class="mb-0">Faris Kamaruddin</h5>
+                                                <h5 class="mb-0">Masni binti Rahman</h5>
                                                 <a class="link-primary"
-                                                    href="mailto:carson.darrin@company.io">fariskmrdn</a>
+                                                    href="mailto:carson.darrin@company.io">masnirahman</a>
                                             </div>
                                             <span class="badge bg-primary">Admin</span>
                                         </div>
@@ -71,116 +71,13 @@
                                         <a href="#" class="dropdown-item">
                                             <span class="d-flex align-items-center">
                                                 <i class="ph-duotone ph-key"></i>
-                                                <span>Change password</span>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-envelope-simple"></i>
-                                                <span>Recently mail</span>
-                                            </span>
-                                            <div class="user-group">
-                                                <img src="../assets/images/user/avatar-1.jpg" alt="user-image"
-                                                    class="avtar" />
-                                                <img src="../assets/images/user/avatar-2.jpg" alt="user-image"
-                                                    class="avtar" />
-                                                <img src="../assets/images/user/avatar-3.jpg" alt="user-image"
-                                                    class="avtar" />
-                                            </div>
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-calendar-blank"></i>
-                                                <span>Schedule meetings</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-heart"></i>
-                                                <span>Favorite</span>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-arrow-circle-down"></i>
-                                                <span>Download</span>
-                                            </span>
-                                            <span class="avtar avtar-xs rounded-circle bg-danger text-white">10</span>
-                                        </a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-globe-hemisphere-west"></i>
-                                                <span>Languages</span>
-                                            </span>
-                                            <span class="flex-shrink-0">
-                                                <select
-                                                    class="form-select bg-transparent form-select-sm border-0 shadow-none">
-                                                    <option value="1">English</option>
-                                                    <option value="2">Spain</option>
-                                                    <option value="3">Arbic</option>
-                                                </select>
-                                            </span>
-                                        </div>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-flag"></i>
-                                                <span>Country</span>
-                                            </span>
-                                        </a>
-                                        <div class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-moon"></i>
-                                                <span>Dark mode</span>
-                                            </span>
-                                            <div class="form-check form-switch form-check-reverse m-0">
-                                                <input class="form-check-input f-18" id="dark-mode"
-                                                    type="checkbox" onclick="dark_mode()" role="switch" />
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-user-circle"></i>
-                                                <span>Edit profile</span>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-star text-warning"></i>
-                                                <span>Upgrade account</span>
-                                                <span
-                                                    class="badge bg-light-success border border-success ms-2">NEW</span>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-bell"></i>
-                                                <span>Notifications</span>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-gear-six"></i>
-                                                <span>Settings</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-plus-circle"></i>
-                                                <span>Add account</span>
+                                                <span>Set Semula Kata Laluan</span>
                                             </span>
                                         </a>
                                         <a href="#" class="dropdown-item">
                                             <span class="d-flex align-items-center">
                                                 <i class="ph-duotone ph-power"></i>
-                                                <span>Logout</span>
+                                                <span>Log Keluar</span>
                                             </span>
                                         </a>
                                     </li>

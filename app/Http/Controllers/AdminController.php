@@ -20,13 +20,22 @@ class AdminController extends Controller
         return view('admins.dashboard', compact('showFiveInventory','showFiveClaimedItem','countItem','countAccounts'));
     }
 
+    public function addPage() {
+        return view('admins.add');
+    }
+
+    public function recordPage() {
+        $record = $this->allRecords();
+        return view('admins.records', compact('record'));
+    }
+
     public function showFiveInventory() {
-        $show = DB::table('pre_item')->orderBy('created_at', 'asc')->limit(5)->get();
+        $show = DB::table('pre_item')->orderBy('created_at', 'desc')->limit(5)->get();
         return $show;
     }
 
     public function showFiveClaimedItem() {
-        $show = DB::table('inventory')->orderBy('updated_at', 'asc')->where('status','2')->limit(5)->get();
+        $show = DB::table('inventory')->orderBy('updated_at', 'desc')->where('status','2')->limit(5)->get();
         return $show;
     }
 
@@ -37,6 +46,11 @@ class AdminController extends Controller
 
     public function countAccounts() {
         $show = DB::table('users')->count();
+        return $show;
+    }
+
+    public function allRecords() {
+        $show = DB::table('inventory')->orderBy('created_at','desc')->get();
         return $show;
     }
 }
