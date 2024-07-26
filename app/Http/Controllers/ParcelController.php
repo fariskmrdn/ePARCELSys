@@ -24,12 +24,19 @@ class ParcelController extends Controller
                 ->get();
 
             if ($find->isEmpty()) {
-                return response()->json(['error' => 'No parcel found with the given tracking number or receiver name.'], 404);
-            }
+                return to_route('index')->with([
+                    'result' => 'error',
+                    'title' => 'Tiada Rekod!',
+                    'message' => 'No pengesanan tidak wujud/telah dituntut.'
+                ]);            }
 
             return redirect()->route('search')->with(['parcels' => $find, 'search' => $validate['track']]);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'An error occurred while searching for the parcel.'], 500);
+            return to_route('index')->with([
+                'result' => 'error',
+                'title' => 'Tiada Rekod!',
+                'message' => 'No pengesanan tidak wujud/telah dituntut.'
+            ]);
         }
     }
 
@@ -130,4 +137,5 @@ class ParcelController extends Controller
             ]);
         }
     }
+    
 }

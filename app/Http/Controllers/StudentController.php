@@ -37,8 +37,8 @@ class StudentController extends Controller
             }
             return back()->with([
                 'result' => 'error',
-                'title' => 'Emel atau kata laluan tidak tepat!',
-                'message' => 'Sila cuba semula.'
+                'title' => 'Log Masuk Gagal',
+                'message' => 'Emel atau kata laluan tidak tepat!'
             ]);
         } else {
             return back()->with([
@@ -63,7 +63,8 @@ class StudentController extends Controller
     // get inventory for unclaimed item
     public function getInventory()
     {
-        return view('students.inventory');
+        $item = $this->inventoryRecords();
+        return view('students.inventory', compact('item'));
     }
 
     // get record for registered item
@@ -83,16 +84,25 @@ class StudentController extends Controller
         return $count;
     }
 
-    public function unretrievedItem() {
+    public function unretrievedItem()
+    {
         $email = Auth::user()->email;
-        $count = Inventory::where('email', $email)->count();
+        $count = DB::table('inventory')->where('email', $email)->where('status', '1')->count();
         return $count;
     }
 
-    
-    public function retrieveRecords() {
+
+    public function retrieveRecords()
+    {
         $userId = Auth::id();
         $find = DB::table('pre_item')->where('user_id', $userId)->get();
         return $find;
+    }
+
+    public function inventoryRecords()
+    {
+        $email = Auth::user()->email;
+        $get = Inventory::where('email', $email)->where('status', '1')->get();
+        return $get;
     }
 }

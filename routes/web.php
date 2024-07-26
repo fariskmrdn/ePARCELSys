@@ -1,10 +1,15 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ParcelController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ParcelController::class, 'index'])->name('index');
+Route::name('admins.')->group(function () {
+    Route::get('/admin/login', [AdminController::class, 'admin_index'])->name('admin.index');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
 
 Route::post('/findParcel', [ParcelController::class, 'findByTrackingNo'])->name('findParcel');
         Route::get('/search', [ParcelController::class, 'item'])->name('search');

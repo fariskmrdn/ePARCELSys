@@ -11,5 +11,15 @@ class Inventory extends Model
     use HasFactory, Notifiable;
 
     protected $table = 'inventory';
-    // protected $fillable = ['tracking_no', 'user_id'];
+    protected $fillable = [
+        'receiver',
+        'email',
+        'tracking',
+        'courier',
+        'admin_id',
+        'serial_no',
+        'created_at',
+        'updated_at',
+        'status',
+    ];
 }
