@@ -74,7 +74,7 @@
                 <div class="card-body" style="background-image: url('../assets/images/layout/nav-card-bg.svg')">
                     <h5 class="text-dark">eParcel Sys dengan wajah yang baru!</h5>
                     <p class="text-dark text-opacity-75">Untuk maklumat lanjut mengenai versi terkini eParcel Sys, klik butang dibawah.</p>
-                    <a href="https://phoenixcoded.support-hub.io/" class="btn btn-primary" target="_blank">Akses Dokumentasi</a>
+                    <a href="{{route('admins.admin.documentation')}}" class="btn btn-primary" target="_blank">Akses Dokumentasi</a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 @extends('layouts.admin-app')
 
-@section('title', 'ePARCELSys - Dashboard')
+@section('title', 'ePARCELSys - Daftar Masuk Parcel')
 
 @section('content')
 

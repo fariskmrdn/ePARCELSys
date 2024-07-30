@@ -105,13 +105,14 @@ class AdminController extends Controller
                     'status' => '1',
                     'updated_at' => now()
                 ]);
+                $serial_no = 'KVKS-HEP-' . rand(1, 999);
                 DB::table('inventory')->insert([
                     'tracking' => $validated['tracking_no'],
                     'status' => '1', // Set the initial status here
                     'receiver' => $find_pre_item->name,
                     'email' => $find_pre_item->email,
                     'admin_id' => '1',
-                    'serial_no' => 'KVKS-HEP-' . rand(1, 999),
+                    'serial_no' => $serial_no,
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);
@@ -119,7 +120,7 @@ class AdminController extends Controller
                 return back()->with([
                     'icon' => 'success',
                     'title' => 'Daftar Masuk Berjaya!',
-                    'text' => 'Daftar masuk barangan berjaya didaftarkan.'
+                    'text' => 'Daftar masuk barangan berjaya didaftarkan (Kod Item: ' . $serial_no . ' )'
                 ]);
             } catch (\Exception $e) {
                 return back()->with([
@@ -140,5 +141,64 @@ class AdminController extends Controller
     {
         $trackingNo = $request->query('tracking_no');
         return view('admins.registration', compact('trackingNo'));
+    }
+
+    public function deleteItem($id)
+    {
+        try {
+            DB::beginTransaction();
+            DB::table('inventory')->where('id', $id)->delete();
+            DB::commit();
+            return back()->with([
+                'icon' => 'success',
+                'title' => 'Berjaya!',
+                'text' => 'Rekod berjaya dihapuskan.'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with([
+                'icon' => 'error',
+                'title' => 'Ralat!',
+                'text' => 'Terdapat ralat semasa menghapuskan rekod. Sila cuba lagi.'
+            ]);
+        }
+    }
+
+    public function changeToClaim($tracking)
+    {
+        try {
+            DB::beginTransaction();
+            DB::table('inventory')->where('tracking', $tracking)->update([
+                'status' => '2',
+                'updated_at' => now(),
+            ]);
+
+            $find_pre_item = DB::table('pre_item')->where('tracking_no', $tracking)->first();
+
+            if ($find_pre_item) {
+                DB::table('pre_item')->where('tracking_no', $tracking)->update([
+                    'status' => '2',
+                    'updated_at' => now(),
+                ]);
+            }
+            DB::commit();
+            return back()->with([
+                'icon' => 'success',
+                'title' => 'Berjaya!',
+                'text' => 'Item berjaya dituntut.'
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return to_route('admins.admin.records')->with([
+                'icon' => 'error',
+                'title' => 'Ralat!',
+                'text' => 'Terdapat ralat semasa mengemaskini rekod. Sila cuba lagi.'
+            ]);
+        }
+    }
+
+    public function documentation() {
+        return view('admins.documentation');
     }
 }
