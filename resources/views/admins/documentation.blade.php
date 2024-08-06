@@ -35,8 +35,18 @@
                                 <div>
                                     <h5 class="text-muted mb-3">Pengenalan</h5>
                                     <p>
-                                        eParcelSys merupakan 
+                                        eParcelSys merupakan sistem pengurusan barangan pelajar yang pertama kali
+                                        dilaksanakan oleh Majlis Perwakilan Pelajar (Sesi 2021/2022), Kolej Vokasional Kuala
+                                        Selangor. eParcelSys kemudian nya telah diberikan kepada Unit Hal Ehwal Pelajar
+                                        (HEP) bagi membantu HEP menguruskan barangan pelajar.
                                     </p>
+                                    <p>Objektif eParcelSys adalah :</p>
+                                    <ol>
+                                        <li>Merekod kemasukkan parcel/barangan pos secara sistematik.</li>
+                                        <li>Membangunkan pangkalan data untuk melihat trend dan statistik semasa.</li>
+                                        <li>Pengurusan inventori yang lebih teratur.</li>
+                                        <li>Mengurangkan kes kecurian barang.</li>
+                                    </ol>
                                 </div>
                             </div>
                         </div>

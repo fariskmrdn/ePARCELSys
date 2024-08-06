@@ -16,6 +16,7 @@ Route::name('admins.')->group(function () {
     Route::delete('/admin/delete_item/{id}', [AdminController::class, 'deleteItem'])->name('admin.delete_item');
     Route::patch('/admin/claim/{id}', [AdminController::class, 'changeToClaim'])->name('admin.claimed');
     Route::get('/admin/documentation', [AdminController::class, 'documentation'])->name('admin.documentation');
+    Route::get('/admin/users', [AdminController::class, 'userLists'])->name('admin.users');
 });
 
 Route::post('/findParcel', [ParcelController::class, 'findByTrackingNo'])->name('findParcel');
@@ -38,7 +39,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/students/inventory', [StudentController::class, 'getInventory'])->name('inventory');
         Route::get('/students/records', [StudentController::class, 'getRecords'])->name('records');
         Route::get('/logout', [StudentController::class, 'logout'])->name('logout');
-
     });
 });
 

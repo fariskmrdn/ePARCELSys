@@ -43,6 +43,7 @@
                                                 <th>No. Siri</th>
                                                 <th>Status</th>
                                                 <th class="text-center">Tindakan</th>
+                                                <th class="d-none">Receiver Name</th> <!-- Hidden column -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -78,6 +79,7 @@
                                                             </svg>
                                                         </button>
                                                     </td>
+                                                    <td class="d-none">{{ $r->receiver }}</td> <!-- Hidden column value -->
                                                 </tr>
                                             @endforeach
                                         </tbody>

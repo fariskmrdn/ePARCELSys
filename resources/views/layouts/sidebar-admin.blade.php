@@ -23,7 +23,7 @@
                 </li>
 
                 <li class="pc-item">
-                    <a href="../widget/w_user.html" class="pc-link">
+                    <a href="{{route('admins.admin.users')}}" class="pc-link">
                         <span class="pc-micon">
                             <i class="ph-duotone ph-identification-card"></i>
                         </span>
@@ -47,7 +47,7 @@
                         <span class="pc-mtext">Rekod Barangan</span>
                     </a>
                 </li>
-                <li class="pc-item pc-hasmenu">
+                {{-- <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
                             <i class="ph-duotone ph-magnifying-glass"></i>
@@ -58,7 +58,7 @@
                         <li class="pc-item"><a class="pc-link" href="../pages/contact-search.html">Contact Search</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 {{-- <li class="pc-item">
                     <a href="../pages/settings.html" class="pc-link">
                         <span class="pc-micon">

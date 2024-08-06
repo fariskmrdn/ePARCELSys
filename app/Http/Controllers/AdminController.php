@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -200,5 +201,10 @@ class AdminController extends Controller
 
     public function documentation() {
         return view('admins.documentation');
+    }
+
+    public function userLists() {
+        $users = User::all();
+        return view('admins.users', compact('users'));
     }
 }

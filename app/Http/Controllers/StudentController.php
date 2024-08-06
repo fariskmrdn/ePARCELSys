@@ -28,6 +28,13 @@ class StudentController extends Controller
         // check user exist or not?
         $user = User::where('email', $validated['email'])->first();
         if ($user) {
+            if ($user['status'] == '0') {
+                return back()->with([
+                    'result' => 'error',
+                    'title' => 'Log Masuk Gagal',
+                    'message' => 'Akaun tidak aktif/telah dinyahaktif. Sila hubungi pihak HEP untuk makluman lanjut.'
+                ]);
+            }
             $validated['email'] = $user['email'];
             if (Auth::attempt($validated)) {
                 $user->update([
