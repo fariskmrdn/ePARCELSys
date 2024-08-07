@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
 use App\Models\User;
+use App\Models\Admin;
 use App\Models\Inventory;
+use App\Mail\ItemRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -25,12 +28,12 @@ class AdminController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            \Log::error('Validation error: ' . $e->getMessage());
+            \Log::error('Validation error: ' . $e->gettext());
 
             return back()->with([
-                'result' => 'error',
+                'icon' => 'error',
                 'title' => 'Log Masuk Gagal',
-                'message' => 'Sila pastikan maklumat yang dimasukkan adalah tepat'
+                'text' => 'Sila pastikan maklumat yang dimasukkan adalah tepat'
             ]);
         }
 
@@ -40,9 +43,9 @@ class AdminController extends Controller
             if ($user) {
                 if ($user['status'] == '2') {
                     return back()->with([
-                        'result' => 'error',
+                        'icon' => 'error',
                         'title' => 'Log Masuk Gagal',
-                        'message' => 'Akaun tidak aktif/telah dinyahaktif'
+                        'text' => 'Akaun tidak aktif/telah dinyahaktif'
                     ]);
                 }
                 $validated['username'] = $user['username'];
@@ -61,18 +64,18 @@ class AdminController extends Controller
 
             } else {
                 return back()->with([
-                    'result' => 'error',
+                    'icon' => 'error',
                     'title' => 'Akaun tidak wujud!',
-                    'message' => 'Sila daftar akaun anda dan cuba sekali lagi.'
+                    'text' => 'Sila daftar akaun anda dan cuba sekali lagi.'
                 ])->withInput($request->all());
             }
         } catch (\Exception $e) {
-            \Log::error('Login error: ' . $e->getMessage());
+            \Log::error('Login error: ' . $e->gettext());
 
             return back()->with([
-                'result' => 'error',
+                'icon' => 'error',
                 'title' => 'Log Masuk Gagal',
-                'message' => 'Nama pengguna atau kata laluan tidak tepat!'
+                'text' => 'Nama pengguna atau kata laluan tidak tepat!'
             ])->withInput($request->all());
         }
 
@@ -191,6 +194,8 @@ class AdminController extends Controller
                     'updated_at' => now()
                 ]);
                 DB::commit();
+                Mail::to($find_pre_item->email)->send(new ItemRegistered(['name' => $find_pre_item->name, 'tracking' => $validated['tracking_no'], 'no' => $serial_no]));
+
                 return back()->with([
                     'icon' => 'success',
                     'title' => 'Daftar Masuk Berjaya!',
@@ -337,5 +342,63 @@ class AdminController extends Controller
     {
         return view('admins.set_password');
     }
+
+    public function setNewPassword(Request $request)
+    {
+        // Check the current password
+        try {
+            DB::beginTransaction();
+            $request->merge([
+                'new_password' => trim($request->input('new_password')),
+                'password_confirmation' => trim($request->input('password_confirmation')),
+            ]);
+
+            // Validate the request
+            $validated = $request->validate([
+                'current_password' => 'required|string',
+                'new_password' => 'required|string|min:8',
+                'password_confirmation' => 'required|string|min:8',
+            ]);
+
+            if ($validated['new_password'] !== $validated['password_confirmation']) {
+                \Log::error('Password confirmation does not match.');
+                return back()->with([
+                    'icon' => 'error',
+                    'title' => 'Gagal!',
+                    'text' => 'Kata laluan baru dan pengesahan kata laluan tidak sepadan.'
+                ]);
+            }
+
+            $auth = Auth::guard('admin')->user();
+
+            if (Hash::check($validated['current_password'], $auth->password)) {
+                // Update the password
+                $auth->password = Hash::make($validated['new_password']);
+                $auth->save();
+
+                DB::commit();
+                return back()->with([
+                    'icon' => 'success',
+                    'title' => 'Berjaya!',
+                    'text' => 'Kata Laluan berjaya di set semula'
+                ]);
+            } else {
+                return back()->with([
+                    'icon' => 'error',
+                    'title' => 'Gagal!',
+                    'text' => 'Kata laluan semasa tidak betul.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with([
+                'icon' => 'error',
+                'title' => 'Gagal!',
+                'text' => 'Kata laluan gagal di set semula. Sila pastikan kata laluan terdahulu adalah tepat sebelum meneruskan proses set semula kata laluan.'
+            ]);
+        }
+    }
+
+
 
 }

@@ -47,6 +47,8 @@
                                         <li>Pengurusan inventori yang lebih teratur.</li>
                                         <li>Mengurangkan kes kecurian barang.</li>
                                     </ol>
+                                    <h5 class="text-muted mb-3">Modul Rekod Simpanan Awal</h5>
+
                                 </div>
                             </div>
                         </div>

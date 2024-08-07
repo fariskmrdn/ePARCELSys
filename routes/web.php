@@ -22,6 +22,7 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::get('/admin/users', [AdminController::class, 'userLists'])->name('admin.users');
         Route::post('/admin/register', [AdminController::class, 'registerNewItem'])->name('admin.add');
         Route::get('/admin/set_password', [AdminController::class, 'setPswdPage'])->name('admin.set');
+        Route::patch('/admin/reset', [AdminController::class, 'setNewPassword'])->name('admin.set_new_password');
         Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
     });
 });

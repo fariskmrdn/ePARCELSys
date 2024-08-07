@@ -58,7 +58,7 @@
 
                                                   <h5 class="mb-0">{{ Auth::guard('admin')->user()->admin_name }}</h5>
 
-                                                  <a class="link-primary" href="#">masnirahman</a>
+                                                  <a class="link-primary" href="#">{{ Auth::guard('admin')->user()->username }}</a>
                                               </div>
                                               <span class="badge bg-primary">Admin</span>
                                           </div>
