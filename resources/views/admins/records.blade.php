@@ -121,7 +121,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label class="font-weight-bold mb-2"><strong>Pegawai Penerima</strong></label>
-                                            <p>MASNI BINTI RAHMAN</p>
+                                            <p>{{ $m->admin_name }}</p>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -132,58 +132,59 @@
                                         </div>
                                     </div>
                                     @if ($m->status == '2')
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label class="font-weight-bold mb-2"><strong>Tarikh dan Masa Barang
-                                                    Dituntut</strong></label>
-                                            <p>{{ \Carbon\Carbon::parse($m->updated_at)->format('d/m/Y h:i A') }}</p>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="font-weight-bold mb-2"><strong>Tarikh dan Masa Barang
+                                                        Dituntut</strong></label>
+                                                <p>{{ \Carbon\Carbon::parse($m->updated_at)->format('d/m/Y h:i A') }}</p>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endif
 
                                 </div>
                             </div>
                             @if ($m->status == '1')
-                            <div class="modal-footer">
-                                <form id="delete-form-{{ $m->id }}"
-                                    action="{{ route('admins.admin.delete_item', [$m->id]) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn btn-danger"
-                                        onclick="confirmDelete({{ $m->id }})">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash"
-                                            width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5"
-                                            stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M4 7l16 0" />
-                                            <path d="M10 11l0 6" />
-                                            <path d="M14 11l0 6" />
-                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                        </svg>
-                                        Padam Rekod
-                                    </button>
-                                </form>
-                                <form id="success-form-{{ $m->tracking }}"
-                                    action="{{ route('admins.admin.claimed', [$m->tracking]) }}" method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="button" class="btn btn-success"
-                                        onclick="confirmSuccess('{{ $m->tracking }}')">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-circle-check-filled" width="44"
-                                            height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path
-                                                d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z"
-                                                stroke-width="0" fill="currentColor" />
-                                        </svg>
-                                        Daftar Keluar
-                                    </button>
-                                </form>
+                                <div class="modal-footer">
+                                    <form id="delete-form-{{ $m->id }}"
+                                        action="{{ route('admins.admin.delete_item', [$m->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-danger"
+                                            onclick="confirmDelete({{ $m->id }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-trash" width="44" height="44"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M4 7l16 0" />
+                                                <path d="M10 11l0 6" />
+                                                <path d="M14 11l0 6" />
+                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                            </svg>
+                                            Padam Rekod
+                                        </button>
+                                    </form>
+                                    <form id="success-form-{{ $m->tracking }}"
+                                        action="{{ route('admins.admin.claimed', [$m->tracking]) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="button" class="btn btn-success"
+                                            onclick="confirmSuccess('{{ $m->tracking }}')">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-circle-check-filled" width="44"
+                                                height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
+                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path
+                                                    d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z"
+                                                    stroke-width="0" fill="currentColor" />
+                                            </svg>
+                                            Daftar Keluar
+                                        </button>
+                                    </form>
 
-                            </div>
+                                </div>
                             @endif
 
                         </div>

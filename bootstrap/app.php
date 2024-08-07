@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectTo(
             guests: '/',
-            users: '/student/index'
+            users: '/student/index',
+          
         );
     })
     ->withExceptions(function (Exceptions $exceptions) {

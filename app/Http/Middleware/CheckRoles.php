@@ -19,6 +19,10 @@ class CheckRoles
         if (!Auth::check()) {
             return to_route('index');
         }
+
+        if (!Auth::guard('admin')->check()) {
+            return to_route('index'); 
+        }
         return $next($request);
     }
 }

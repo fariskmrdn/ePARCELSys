@@ -2,15 +2,85 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\User;
+use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function admin_index()
     {
         return view('admins.login');
+    }
+
+    public function login(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'username' => 'required|string',
+                'password' => 'required|string'
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error('Validation error: ' . $e->getMessage());
+
+            return back()->with([
+                'result' => 'error',
+                'title' => 'Log Masuk Gagal',
+                'message' => 'Sila pastikan maklumat yang dimasukkan adalah tepat'
+            ]);
+        }
+
+        try {
+            // check user exist or not?
+            $user = Admin::where('username', $validated['username'])->first();
+            if ($user) {
+                if ($user['status'] == '2') {
+                    return back()->with([
+                        'result' => 'error',
+                        'title' => 'Log Masuk Gagal',
+                        'message' => 'Akaun tidak aktif/telah dinyahaktif'
+                    ]);
+                }
+                $validated['username'] = $user['username'];
+                if (Auth::guard('admin')->attempt($validated)) {
+                    $user->update([
+                        'last_login' => now()
+                    ]);
+                    \Log::info($user);
+                    return to_route('admins.admin.dashboard');
+                }
+                return back()->with([
+                    'icon' => 'error',
+                    'title' => 'Log Masuk Gagal',
+                    'text' => 'Nama pengguna atau kata laluan tidak tepat!'
+                ])->withInput($request->all());
+
+            } else {
+                return back()->with([
+                    'result' => 'error',
+                    'title' => 'Akaun tidak wujud!',
+                    'message' => 'Sila daftar akaun anda dan cuba sekali lagi.'
+                ])->withInput($request->all());
+            }
+        } catch (\Exception $e) {
+            \Log::error('Login error: ' . $e->getMessage());
+
+            return back()->with([
+                'result' => 'error',
+                'title' => 'Log Masuk Gagal',
+                'message' => 'Nama pengguna atau kata laluan tidak tepat!'
+            ])->withInput($request->all());
+        }
+
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return to_route('admin.index');
     }
 
     public function dashboard()
@@ -57,10 +127,13 @@ class AdminController extends Controller
         $show = DB::table('users')->count();
         return $show;
     }
-
     public function allRecords()
     {
-        $show = DB::table('inventory')->orderBy('created_at', 'desc')->get();
+        $show = DB::table('inventory')
+            ->leftJoin('admin', 'inventory.admin_id', '=', 'admin.id')
+            ->select('inventory.*', 'admin.admin_name as admin_name')
+            ->orderBy('inventory.created_at', 'desc')
+            ->get();
         return $show;
     }
 
@@ -138,6 +211,56 @@ class AdminController extends Controller
 
     }
 
+    public function registerNewItem(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'tracking_no' => 'required|string|max:225',
+                'courier_name' => 'required|string|max:100',
+                'receiver' => 'required|string|max:255',
+            ]);
+
+        } catch (\Exception $e) {
+            return back()->with([
+                'icon' => 'error',
+                'title' => 'Daftar Masuk Gagal!',
+                'text' => 'Sila semak semula no tracking yang di isi dan cuba semula'
+            ]);
+        }
+
+        if ($validated['courier_name'] == '0') {
+            $validated['courier_name'] == NULL;
+        }
+
+        $serial_no = 'KVKS-HEP-' . rand(1, 999);
+
+        try {
+            DB::beginTransaction();
+
+            $insert = Inventory::insert([
+                'receiver' => $validated['receiver'],
+                'tracking' => $validated['tracking_no'],
+                'courier' => $validated['courier_name'],
+                'admin_id' => Auth::guard('admin')->user()->id,
+                'serial_no' => $serial_no,
+            ]);
+            DB::commit();
+            return back()->with([
+                'icon' => 'success',
+                'title' => 'Daftar Masuk Berjaya!',
+                'text' => 'Daftar masuk barangan berjaya didaftarkan (Kod Item: ' . $serial_no . ' )'
+            ]);
+        } catch (\Exception $e) {
+            // dd($e);
+            DB::rollBack();
+            return back()->with([
+                'icon' => 'error',
+                'title' => 'Daftar Masuk Gagal!',
+                'text' => 'Ralat! Sila cuba sebentar lagi.'
+            ]);
+        }
+    }
+
     public function showParcelRegisterForm(Request $request)
     {
         $trackingNo = $request->query('tracking_no');
@@ -199,12 +322,20 @@ class AdminController extends Controller
         }
     }
 
-    public function documentation() {
+    public function documentation()
+    {
         return view('admins.documentation');
     }
 
-    public function userLists() {
+    public function userLists()
+    {
         $users = User::all();
         return view('admins.users', compact('users'));
     }
+
+    public function setPswdPage()
+    {
+        return view('admins.set_password');
+    }
+
 }

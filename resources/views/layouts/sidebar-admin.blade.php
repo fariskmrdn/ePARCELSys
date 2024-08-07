@@ -91,7 +91,7 @@
                                 aria-expanded="false" data-bs-offset="0,20">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 me-2">
-                                        <h6 class="mb-0">Masni binti Rahman</h6>
+                                        <h6 class="mb-0">{{ Auth::guard('admin')->user()->admin_name }}</h6>
                                         <small>Administrator</small>
                                     </div>
                                     <div class="flex-shrink-0">
@@ -104,7 +104,7 @@
                             <div class="dropdown-menu">
                                 <ul>
                                     {{-- <li>
-                                        <a class="pc-user-links">
+                                        <a class="pc-user-links"> 
                                             <i class="ph-duotone ph-user"></i>
                                             <span>My Account</span>
                                         </a>
@@ -122,7 +122,7 @@
                                         </a>
                                     </li> --}}
                                     <li>
-                                        <a class="pc-user-links">
+                                        <a href="{{route('admins.admin.logout')}}" class="pc-user-links">
                                             <i class="ph-duotone ph-power"></i>
                                             <span>Log Keluar</span>
                                         </a>

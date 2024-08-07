@@ -36,7 +36,7 @@
                                 <div>
                                     <h5 class="text-muted mb-3">Borang daftar masuk barang.</h5>
                                     <p class="muted">* Sila isi borang ini dengan lengkap</p>
-                                    <form action="{{ route('admins.admin.register') }}" method="POST">
+                                    <form action="{{ route('admins.admin.add') }}" method="POST">
                                         @csrf
                                         <div class="row">
                                             <div class="mb-3 col-4">
@@ -47,18 +47,18 @@
                                             </div>
                                             <div class="mb-3 col-4">
                                                 <label for="trackingNo" class="form-label">Kurier</label>
-                                                <select class="form-control" name="" id="">
-                                                    <option value="">Maklumat Tidak Tersedia</option>
-                                                    <option value="">Shopee Express</option>
-                                                    <option value="">J&T Malaysia</option>
-                                                    <option value="">Pos Malaysia/PosLaju</option>
-                                                    <option value="">Ninja Van</option>
-                                                    <option value="">DHL Express</option>
-                                                    <option value="">FedEx</option>
-                                                    <option value="">Skynet</option>
-                                                    <option value="">Aramex</option>
-                                                    <option value="">ABX Express</option>
-                                                    <option value="">City-Link Express</option>
+                                                <select class="form-control" name="courier_name" id="">
+                                                    <option value="0">Maklumat Tidak Tersedia</option>
+                                                    <option value="SHOPEE EXPRESS">Shopee Express</option>
+                                                    <option value="J&T MALAYSIA">J&T Malaysia</option>
+                                                    <option value="POS MALAYSIA/POSLAJU">Pos Malaysia/PosLaju</option>
+                                                    <option value="NINJA VAN">Ninja Van</option>
+                                                    <option value="DHL EXPRESS">DHL Express</option>
+                                                    <option value="FEDEX">FedEx</option>
+                                                    <option value="SKYNET">Skynet</option>
+                                                    <option value="ARAMEX">Aramex</option>
+                                                    <option value="ABX EXPRESS">ABX Express</option>
+                                                    <option value="CITY-LINK EXPRESS">City-Link Express</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3 col-4">
