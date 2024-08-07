@@ -163,6 +163,7 @@ class AdminController extends Controller
             ->select('pre_item.*', 'users.email', 'users.name')
             ->first();
 
+            $admin_id = Auth::guard('admin')->user()->id;
 
         // SEE WHETHER PARCEL IS FOUNDED
         if ($find_pre_item) {
@@ -188,7 +189,7 @@ class AdminController extends Controller
                     'status' => '1', // Set the initial status here
                     'receiver' => $find_pre_item->name,
                     'email' => $find_pre_item->email,
-                    'admin_id' => '1',
+                    'admin_id' => $admin_id,
                     'serial_no' => $serial_no,
                     'created_at' => now(),
                     'updated_at' => now()
@@ -399,6 +400,27 @@ class AdminController extends Controller
         }
     }
 
+    public function showUser($id) {
+        try {
+            // find user
+            $id = decrypt_string($id);
+            $user = User::find($id);
+            if (!$user) {
+                return back()->with([
+                    'icon' => 'error',
+                    'title' => 'Maklumat tidak dijumpai!',
+                    'text' => 'Maklumat dan profil tidak wujud atau tidak dijumpai.'
+                ]); 
+            }
+            return view('admins.user', compact('user'));
 
+        } catch (\Exception $e) {
+            return back()->with([
+                'icon' => 'error',
+                'title' => 'Forbidden Access',
+                'text' => 'Error : '.$e->getMessage().'',
+            ]); 
+        }
+    }
 
 }

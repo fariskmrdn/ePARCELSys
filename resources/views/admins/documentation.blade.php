@@ -48,7 +48,15 @@
                                         <li>Mengurangkan kes kecurian barang.</li>
                                     </ol>
                                     <h5 class="text-muted mb-3">Modul Rekod Simpanan Awal</h5>
-
+                                    <p style="text-align: justify">
+                                        Modul ini dibangunkan sebagai langkah pertama bagi proses dan prosedur penjejakan
+                                        barang secara no. tracking. eParcelSys tidak disokong oleh mana-mana <em>API</em>
+                                        penjejakan atas faktor keselamatan.
+                                        Pelajar boleh mendaftar akaun dan mendaftar no. tracking di dalam sistem. Ketika
+                                        barangan tiba di Pejabat Hal Ehwal Pelajar (HEP), pegawai bertugas hanya perlu
+                                        mengimbas atau memasukkan no tracking ke dalam sistem (Di bahagian <em>side
+                                            menu</em> sebelah kiri skrin, klik pada "Daftar Masuk Parcel")
+                                    </p>
                                 </div>
                             </div>
                         </div>

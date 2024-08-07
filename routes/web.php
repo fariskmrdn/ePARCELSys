@@ -24,6 +24,7 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::get('/admin/set_password', [AdminController::class, 'setPswdPage'])->name('admin.set');
         Route::patch('/admin/reset', [AdminController::class, 'setNewPassword'])->name('admin.set_new_password');
         Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+        Route::get('admin/users/{id}', [AdminController::class, 'showUser'])->name('admin.show_user');
     });
 });
 
