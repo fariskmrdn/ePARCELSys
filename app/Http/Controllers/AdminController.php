@@ -405,14 +405,21 @@ class AdminController extends Controller
             // find user
             $id = decrypt_string($id);
             $user = User::find($id);
+            $email = $user->email;
             if (!$user) {
                 return back()->with([
                     'icon' => 'error',
                     'title' => 'Maklumat tidak dijumpai!',
                     'text' => 'Maklumat dan profil tidak wujud atau tidak dijumpai.'
                 ]); 
+            } else {
+                $findItem = DB::table('inventory')
+                ->join('users', 'inventory.email', '=', 'users.email')
+                ->where('inventory.email', $email)
+                ->select('inventory.*', 'users.name as user_name', 'users.email as user_email')
+                ->get();
             }
-            return view('admins.user', compact('user'));
+            return view('admins.user', compact('user','findItem'));
 
         } catch (\Exception $e) {
             return back()->with([

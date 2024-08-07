@@ -64,21 +64,42 @@
                                     <h5>Rekod Barang</h5>
                                     <p>* Rekod hanya memaparkan senarai barang yang di daftarkan melalui akaun ini.</p>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 mb-3">
                                     <div class="table-responsive">
                                         <table class="table display " id="users">
                                             <thead>
                                                 <tr>
-                                                    <th>Bil</th>
+                                                    <th class="text-center">Bil</th>
                                                     <th>No. Tracking</th>
                                                     <th class="text-center">Status</th>
                                                     <th class="text-center">Tarikh dan Masa</th>
                                                 </tr>
                                             </thead>
+                                            <tbody>
+                                                @php
+                                                    $bil=1;
+                                                @endphp
+                                                @foreach ($findItem as $item)
+                                                    <tr>
+                                                        <td class="text-center">{{$bil++}}</td>
+                                                        <td>{{ $item->tracking }}</td>
+                                                        <td class="text-center">
+                                                            @if ($item->status == '2')
+                                                                <span class="badge bg-light-success">Dituntut</span>
+                                                            @else
+                                                                <span class="badge bg-light-danger">Tidak Dituntut</span>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">{{date('d/m/Y h:i A', strtotime($item->created_at))}}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
-
+                                <div class="col-lg-12">
+                                    <a href="" class="btn btn-danger">Nyahaktif Akaun</a>
+                                </div>
                             </div>
                         </div>
                     </div>

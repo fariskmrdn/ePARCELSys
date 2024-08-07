@@ -91,7 +91,7 @@
                                 aria-expanded="false" data-bs-offset="0,20">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 me-2">
-                                        <h6 class="mb-0">{{ Auth::guard('admin')->user()->admin_name }}</h6>
+                                        <h6 class="mb-0 text-break">{{ Auth::guard('admin')->user()->admin_name }}</h6>
                                         <small>Administrator</small>
                                     </div>
                                     <div class="flex-shrink-0">
