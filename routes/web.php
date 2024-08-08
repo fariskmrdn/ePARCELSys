@@ -25,6 +25,7 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::patch('/admin/reset', [AdminController::class, 'setNewPassword'])->name('admin.set_new_password');
         Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
         Route::get('admin/users/{id}', [AdminController::class, 'showUser'])->name('admin.show_user');
+        Route::patch('/admin/user_status/{id}', [AdminController::class, 'changeStudentStatus'])->name('admin.change_status');
     });
 });
 

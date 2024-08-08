@@ -36,7 +36,15 @@
                                         </p>
                                         <p>
                                             <strong>Tarikh dan Masa Ketibaan  
-                                                :</strong>{{ \Carbon\Carbon::parse($parcel->created_at)->format('d/m/Y H:i A') }}
+                                                :</strong>{{ \Carbon\Carbon::parse($parcel->created_at)->format('d/m/Y h:i A') }}
+                                        </p>
+                                        <p>
+                                            @if ($parcel->status == '1')
+                                            Status : <span class="btn btn-success">Sedia Dituntut</span>
+                                                @else
+                                            Status : <span class="btn btn-danger">Telah Dituntut</span>
+
+                                            @endif
                                         </p>
                                     </div>
                                 </div>

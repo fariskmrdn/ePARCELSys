@@ -13,6 +13,8 @@ class User extends Authenticatable
 
     protected $table = 'users';
     protected $guarded = ['id', 'created_at','updated_at'];
+
+    protected $fillable = ['status'];
     protected $hidden = ['password'];
 
     protected function casts(): array

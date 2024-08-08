@@ -77,11 +77,11 @@
                                             </thead>
                                             <tbody>
                                                 @php
-                                                    $bil=1;
+                                                    $bil = 1;
                                                 @endphp
                                                 @foreach ($findItem as $item)
                                                     <tr>
-                                                        <td class="text-center">{{$bil++}}</td>
+                                                        <td class="text-center">{{ $bil++ }}</td>
                                                         <td>{{ $item->tracking }}</td>
                                                         <td class="text-center">
                                                             @if ($item->status == '2')
@@ -90,7 +90,8 @@
                                                                 <span class="badge bg-light-danger">Tidak Dituntut</span>
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">{{date('d/m/Y h:i A', strtotime($item->created_at))}}</td>
+                                                        <td class="text-center">
+                                                            {{ date('d/m/Y h:i A', strtotime($item->created_at)) }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -98,7 +99,17 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <a href="" class="btn btn-danger">Nyahaktif Akaun</a>
+                                    <form
+                                        action="{{ route('admins.admin.change_status', ['id' => encrypt_string($user->id)]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        @if ($user->status == '1')
+                                            <button type="submit" class="btn btn-danger">Nyahaktif Akaun</button>
+                                        @else
+                                            <button type="submit" class="btn btn-success">Aktifkan Akaun</button>
+                                        @endif
+                                    </form>
                                 </div>
                             </div>
                         </div>

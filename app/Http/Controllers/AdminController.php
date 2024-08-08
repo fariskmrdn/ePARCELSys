@@ -163,7 +163,7 @@ class AdminController extends Controller
             ->select('pre_item.*', 'users.email', 'users.name')
             ->first();
 
-            $admin_id = Auth::guard('admin')->user()->id;
+        $admin_id = Auth::guard('admin')->user()->id;
 
         // SEE WHETHER PARCEL IS FOUNDED
         if ($find_pre_item) {
@@ -400,7 +400,8 @@ class AdminController extends Controller
         }
     }
 
-    public function showUser($id) {
+    public function showUser($id)
+    {
         try {
             // find user
             $id = decrypt_string($id);
@@ -411,23 +412,67 @@ class AdminController extends Controller
                     'icon' => 'error',
                     'title' => 'Maklumat tidak dijumpai!',
                     'text' => 'Maklumat dan profil tidak wujud atau tidak dijumpai.'
-                ]); 
+                ]);
             } else {
                 $findItem = DB::table('inventory')
-                ->join('users', 'inventory.email', '=', 'users.email')
-                ->where('inventory.email', $email)
-                ->select('inventory.*', 'users.name as user_name', 'users.email as user_email')
-                ->get();
+                    ->join('users', 'inventory.email', '=', 'users.email')
+                    ->where('inventory.email', $email)
+                    ->select('inventory.*', 'users.name as user_name', 'users.email as user_email')
+                    ->get();
             }
-            return view('admins.user', compact('user','findItem'));
+            return view('admins.user', compact('user', 'findItem'));
 
         } catch (\Exception $e) {
             return back()->with([
                 'icon' => 'error',
                 'title' => 'Forbidden Access',
-                'text' => 'Error : '.$e->getMessage().'',
-            ]); 
+                'text' => 'Error : ' . $e->getMessage() . '',
+            ]);
         }
     }
+
+    public function changeStudentStatus($id)
+    {
+        try {
+
+            // Decrypt the ID
+            $id = decrypt_string($id);
+
+            // Find the user
+            $user = User::find($id);
+
+            // If user not found, return error response
+            if (!$user) {
+                return back()->with([
+                    'icon' => 'error',
+                    'title' => 'Maklumat tidak dijumpai!',
+                    'text' => 'Maklumat dan profil tidak wujud atau tidak dijumpai.'
+                ]);
+            }
+
+            // Update user status
+            $user->status = ($user->status == '1') ? '0' : '1';
+            $user->save();
+         
+
+            // Return success response
+            return back()->with([
+                'icon' => 'success',
+                'title' => 'Berjaya!',
+                'text' => 'Status akaun berjaya dikemaskini'
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Error changing user status: ' . $e->getMessage());
+
+            // Return error response
+            return back()->with([
+                'icon' => 'error',
+                'title' => 'Forbidden Access',
+                'text' => 'Error : ' . $e->getMessage()
+            ]);
+        }
+    }
+
+
 
 }
